@@ -5,9 +5,9 @@ The Benchmark client assumes the two servers are already running. It then runs t
 some number of times (the constant NUM), for each of the two servers. Both trials are timed, and the times are
 then printed. This compares the time it takes to serve an equal number of clients on each server.
 
-For NUM = 10,000 I got the following results
-SimpleServer took 0.07318 seconds
-MTServer took 0.035243 seconds
+For NUM = 10,000 I got the following results:
+SimpleServer took 0.07318 seconds.
+MTServer took 0.035243 seconds.
 The multithreaded server was more than twice as efficient as the single threaded server. For much larger values
 of NUM, the difference became much less siginificant. My guess is that this has to do with the Java's threads-
 running too many on a limited number of processors (like the two/four in your average laptop) loses its advantage.
