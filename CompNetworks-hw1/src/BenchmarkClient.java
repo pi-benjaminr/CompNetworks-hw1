@@ -4,7 +4,7 @@ import java.net.UnknownHostException;
 
 public class BenchmarkClient {
 	
-	private static final int NUM = 100000;
+	private static final int NUM = 1000000;
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
 		
