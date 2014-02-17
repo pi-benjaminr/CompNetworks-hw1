@@ -4,9 +4,9 @@ import java.net.UnknownHostException;
 
 public class BenchmarkClient {
 	
-	private static final int NUM = 10000;
+	private static final int NUM = 100000;
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		
 		long startTime, endTime;
 		double durationSimple, durationMT;
@@ -15,8 +15,9 @@ public class BenchmarkClient {
 		
 		System.out.println("Starting to test SimpleServer...");
 		startTime = System.nanoTime();
-		for (int i = 0; i < NUM; i++) {
-			Thread runClient = new Thread() {
+		Thread runClient = new Thread(); //this variable will be used to tell us when the last thread finishes
+		for (int i = 0; i < NUM; i++) { //spawn NUM threads
+			runClient = new Thread() {
 				public void run(){
 					try {
 						SimpleClient.main(null);
@@ -30,6 +31,7 @@ public class BenchmarkClient {
 				}
 			};
 		}
+		runClient.join(); //waits for last thread to finish
 		endTime = System.nanoTime();
 		durationSimple = (endTime - startTime)/1000000000.0;
 		
@@ -38,8 +40,8 @@ public class BenchmarkClient {
 		SimpleClient.port = 4444;
 		System.out.println("Starting to test MTServer...");
 		startTime = System.nanoTime();
-		for (int i = 0; i < NUM; i++) {
-			Thread runClient = new Thread() {
+		for (int i = 0; i < NUM; i++) { //spawn NUM threads
+			runClient = new Thread() {
 				public void run(){
 					try {
 						SimpleClient.main(null);
@@ -53,6 +55,7 @@ public class BenchmarkClient {
 				}
 			};
 		}
+		runClient.join(); //waits for the last thread to finish
 		endTime = System.nanoTime();
 		durationMT = (endTime - startTime)/1000000000.0;
 		
